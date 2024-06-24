@@ -33444,11 +33444,11 @@ public class ChipClusters {
     }
 
     public interface CalendarPeriodsAttributeCallback extends BaseAttributeCallback {
-      void onSuccess(List<ChipStructs.EnergyCalendarClusterCalendarPeriod> value);
+      void onSuccess(@Nullable List<ChipStructs.EnergyCalendarClusterCalendarPeriodStruct> value);
     }
 
     public interface SpecialDaysAttributeCallback extends BaseAttributeCallback {
-      void onSuccess(List<ChipStructs.EnergyCalendarClusterDayStruct> value);
+      void onSuccess(@Nullable List<ChipStructs.EnergyCalendarClusterDayStruct> value);
     }
 
     public interface CurrentDayAttributeCallback extends BaseAttributeCallback {
@@ -33624,7 +33624,7 @@ public class ChipClusters {
       readAttribute(new ReportCallbackImpl(callback, path) {
           @Override
           public void onSuccess(byte[] tlv) {
-            List<ChipStructs.EnergyCalendarClusterCalendarPeriod> value = ChipTLVValueDecoder.decodeAttributeValue(path, tlv);
+            @Nullable List<ChipStructs.EnergyCalendarClusterCalendarPeriodStruct> value = ChipTLVValueDecoder.decodeAttributeValue(path, tlv);
             callback.onSuccess(value);
           }
         }, CALENDAR_PERIODS_ATTRIBUTE_ID, true);
@@ -33637,7 +33637,7 @@ public class ChipClusters {
       subscribeAttribute(new ReportCallbackImpl(callback, path) {
           @Override
           public void onSuccess(byte[] tlv) {
-            List<ChipStructs.EnergyCalendarClusterCalendarPeriod> value = ChipTLVValueDecoder.decodeAttributeValue(path, tlv);
+            @Nullable List<ChipStructs.EnergyCalendarClusterCalendarPeriodStruct> value = ChipTLVValueDecoder.decodeAttributeValue(path, tlv);
             callback.onSuccess(value);
           }
         }, CALENDAR_PERIODS_ATTRIBUTE_ID, minInterval, maxInterval);
@@ -33650,7 +33650,7 @@ public class ChipClusters {
       readAttribute(new ReportCallbackImpl(callback, path) {
           @Override
           public void onSuccess(byte[] tlv) {
-            List<ChipStructs.EnergyCalendarClusterDayStruct> value = ChipTLVValueDecoder.decodeAttributeValue(path, tlv);
+            @Nullable List<ChipStructs.EnergyCalendarClusterDayStruct> value = ChipTLVValueDecoder.decodeAttributeValue(path, tlv);
             callback.onSuccess(value);
           }
         }, SPECIAL_DAYS_ATTRIBUTE_ID, true);
@@ -33663,7 +33663,7 @@ public class ChipClusters {
       subscribeAttribute(new ReportCallbackImpl(callback, path) {
           @Override
           public void onSuccess(byte[] tlv) {
-            List<ChipStructs.EnergyCalendarClusterDayStruct> value = ChipTLVValueDecoder.decodeAttributeValue(path, tlv);
+            @Nullable List<ChipStructs.EnergyCalendarClusterDayStruct> value = ChipTLVValueDecoder.decodeAttributeValue(path, tlv);
             callback.onSuccess(value);
           }
         }, SPECIAL_DAYS_ATTRIBUTE_ID, minInterval, maxInterval);
