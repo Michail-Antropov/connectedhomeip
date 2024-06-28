@@ -115,6 +115,16 @@ private:
      * Should be called when it is necessary to change the operational state as a manual operation.
      */
     void OnOvenOperationalStateChange(std::string device, std::string operation, Json::Value param);
+
+    /**
+     * Should be called when it is necessary to change the mode to manual operation.
+     */
+    void OnEnergyCalendarHandler(Json::Value param);
+
+    /**
+     * Should be called when it is necessary to change one or some attributes.
+     */
+    void OnMeterIdentificationHandler(Json::Value param);
 };
 
 class AllClustersCommandDelegate : public NamedPipeCommandDelegate

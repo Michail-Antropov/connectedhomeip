@@ -234,6 +234,9 @@ NSString * MTRClusterNameForID(MTRClusterIDType clusterID)
     case MTRClusterIDTypeEnergyEVSEID:
         result = @"EnergyEVSE";
         break;
+    case MTRClusterIDTypeEnergyCalendarID:
+        result = @"EnergyCalendar";
+        break;
     case MTRClusterIDTypeEnergyPreferenceID:
         result = @"EnergyPreference";
         break;
@@ -386,6 +389,9 @@ NSString * MTRClusterNameForID(MTRClusterIDType clusterID)
         break;
     case MTRClusterIDTypeElectricalMeasurementID:
         result = @"ElectricalMeasurement";
+        break;
+    case MTRClusterIDTypeMeterIdentificationID:
+        result = @"MeterIdentification";
         break;
     case MTRClusterIDTypeUnitTestingID:
         result = @"UnitTesting";
@@ -4781,6 +4787,89 @@ NSString * MTRAttributeNameForID(MTRClusterIDType clusterID, MTRAttributeIDType 
         }
         break;
 
+    case MTRClusterIDTypeEnergyCalendarID:
+
+        switch (attributeID) {
+
+            // Cluster EnergyCalendar attributes
+        case MTRAttributeIDTypeClusterEnergyCalendarAttributeCalendarIDID:
+            result = @"CalendarID";
+            break;
+
+        case MTRAttributeIDTypeClusterEnergyCalendarAttributeNameID:
+            result = @"Name";
+            break;
+
+        case MTRAttributeIDTypeClusterEnergyCalendarAttributeProviderIDID:
+            result = @"ProviderID";
+            break;
+
+        case MTRAttributeIDTypeClusterEnergyCalendarAttributeEventIDID:
+            result = @"EventID";
+            break;
+
+        case MTRAttributeIDTypeClusterEnergyCalendarAttributeStartDateID:
+            result = @"StartDate";
+            break;
+
+        case MTRAttributeIDTypeClusterEnergyCalendarAttributeCalendarPeriodsID:
+            result = @"CalendarPeriods";
+            break;
+
+        case MTRAttributeIDTypeClusterEnergyCalendarAttributeSpecialDaysID:
+            result = @"SpecialDays";
+            break;
+
+        case MTRAttributeIDTypeClusterEnergyCalendarAttributeCurrentDayID:
+            result = @"CurrentDay";
+            break;
+
+        case MTRAttributeIDTypeClusterEnergyCalendarAttributeNextDayID:
+            result = @"NextDay";
+            break;
+
+        case MTRAttributeIDTypeClusterEnergyCalendarAttributeCurrentTransitionID:
+            result = @"CurrentTransition";
+            break;
+
+        case MTRAttributeIDTypeClusterEnergyCalendarAttributeCurrentPeakPeriodID:
+            result = @"CurrentPeakPeriod";
+            break;
+
+        case MTRAttributeIDTypeClusterEnergyCalendarAttributeNextPeakPeriodID:
+            result = @"NextPeakPeriod";
+            break;
+
+        case MTRAttributeIDTypeClusterEnergyCalendarAttributeGeneratedCommandListID:
+            result = @"GeneratedCommandList";
+            break;
+
+        case MTRAttributeIDTypeClusterEnergyCalendarAttributeAcceptedCommandListID:
+            result = @"AcceptedCommandList";
+            break;
+
+        case MTRAttributeIDTypeClusterEnergyCalendarAttributeEventListID:
+            result = @"EventList";
+            break;
+
+        case MTRAttributeIDTypeClusterEnergyCalendarAttributeAttributeListID:
+            result = @"AttributeList";
+            break;
+
+        case MTRAttributeIDTypeClusterEnergyCalendarAttributeFeatureMapID:
+            result = @"FeatureMap";
+            break;
+
+        case MTRAttributeIDTypeClusterEnergyCalendarAttributeClusterRevisionID:
+            result = @"ClusterRevision";
+            break;
+
+        default:
+            result = [NSString stringWithFormat:@"<Unknown attributeID %d>", attributeID];
+            break;
+        }
+        break;
+
     case MTRClusterIDTypeEnergyPreferenceID:
 
         switch (attributeID) {
@@ -8970,6 +9059,61 @@ NSString * MTRAttributeNameForID(MTRClusterIDType clusterID, MTRAttributeIDType 
         }
         break;
 
+    case MTRClusterIDTypeMeterIdentificationID:
+
+        switch (attributeID) {
+
+            // Cluster MeterIdentification attributes
+        case MTRAttributeIDTypeClusterMeterIdentificationAttributeMeterTypeID:
+            result = @"MeterType";
+            break;
+
+        case MTRAttributeIDTypeClusterMeterIdentificationAttributeUtilityNameID:
+            result = @"UtilityName";
+            break;
+
+        case MTRAttributeIDTypeClusterMeterIdentificationAttributePointOfDeliveryID:
+            result = @"PointOfDelivery";
+            break;
+
+        case MTRAttributeIDTypeClusterMeterIdentificationAttributePowerThresholdID:
+            result = @"PowerThreshold";
+            break;
+
+        case MTRAttributeIDTypeClusterMeterIdentificationAttributePowerThresholdSourceID:
+            result = @"PowerThresholdSource";
+            break;
+
+        case MTRAttributeIDTypeClusterMeterIdentificationAttributeGeneratedCommandListID:
+            result = @"GeneratedCommandList";
+            break;
+
+        case MTRAttributeIDTypeClusterMeterIdentificationAttributeAcceptedCommandListID:
+            result = @"AcceptedCommandList";
+            break;
+
+        case MTRAttributeIDTypeClusterMeterIdentificationAttributeEventListID:
+            result = @"EventList";
+            break;
+
+        case MTRAttributeIDTypeClusterMeterIdentificationAttributeAttributeListID:
+            result = @"AttributeList";
+            break;
+
+        case MTRAttributeIDTypeClusterMeterIdentificationAttributeFeatureMapID:
+            result = @"FeatureMap";
+            break;
+
+        case MTRAttributeIDTypeClusterMeterIdentificationAttributeClusterRevisionID:
+            result = @"ClusterRevision";
+            break;
+
+        default:
+            result = [NSString stringWithFormat:@"<Unknown attributeID %d>", attributeID];
+            break;
+        }
+        break;
+
     case MTRClusterIDTypeUnitTestingID:
 
         switch (attributeID) {
@@ -10470,6 +10614,16 @@ NSString * MTREventNameForID(MTRClusterIDType clusterID, MTREventIDType eventID)
         }
         break;
 
+    case MTRClusterIDTypeEnergyCalendarID:
+
+        switch (eventID) {
+
+        default:
+            result = [NSString stringWithFormat:@"<Unknown eventID %d>", eventID];
+            break;
+        }
+        break;
+
     case MTRClusterIDTypeEnergyPreferenceID:
 
         switch (eventID) {
@@ -11086,6 +11240,16 @@ NSString * MTREventNameForID(MTRClusterIDType clusterID, MTREventIDType eventID)
         break;
 
     case MTRClusterIDTypeElectricalMeasurementID:
+
+        switch (eventID) {
+
+        default:
+            result = [NSString stringWithFormat:@"<Unknown eventID %d>", eventID];
+            break;
+        }
+        break;
+
+    case MTRClusterIDTypeMeterIdentificationID:
 
         switch (eventID) {
 

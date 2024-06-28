@@ -84,6 +84,7 @@ Generally regenerate using one of:
 |        151 |       0x97 | Messages                                                |
 |        152 |       0x98 | DeviceEnergyManagement                                  |
 |        153 |       0x99 | EnergyEvse                                              |
+|        154 |       0x9A | EnergyCalendar                                          |
 |        155 |       0x9B | EnergyPreference                                        |
 |        156 |       0x9C | PowerTopology                                           |
 |        157 |       0x9D | EnergyEvseMode                                          |
@@ -135,6 +136,7 @@ Generally regenerate using one of:
 |       1872 |      0x750 | EcosystemInformation                                    |
 |       1873 |      0x751 | CommissionerControl                                     |
 |       2820 |      0xB04 | ElectricalMeasurement                                   |
+|       2822 |      0xB06 | MeterIdentification                                     |
 | 4294048773 | 0xFFF1FC05 | UnitTesting                                             |
 | 4294048774 | 0xFFF1FC06 | FaultInjection                                          |
 | 4294048800 | 0xFFF1FC20 | SampleMei                                               |

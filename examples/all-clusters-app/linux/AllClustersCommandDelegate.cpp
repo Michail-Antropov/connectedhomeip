@@ -29,6 +29,8 @@
 #include <platform/PlatformManager.h>
 
 #include "ButtonEventsSimulator.h"
+#include "energy-calendar-instance.h"
+#include "meter-identification-delegate.h"
 #include <air-quality-instance.h>
 #include <dishwasher-mode.h>
 #include <laundry-washer-mode.h>
@@ -39,6 +41,7 @@
 
 #include <memory>
 #include <string>
+#include <fstream>
 #include <utility>
 
 using namespace chip;
@@ -407,6 +410,14 @@ void AllClustersAppCommandHandler::HandleCommand(intptr_t context)
     {
         HandleSimulateLatchPosition(self->mJsonValue);
     }
+    else if (name == "EnergyCalendar")
+    {
+        self->OnEnergyCalendarHandler(self->mJsonValue);
+    }
+    else if (name == "MeterIdentification")
+    {
+        self->OnMeterIdentificationHandler(self->mJsonValue);
+    }
     else
     {
         ChipLogError(NotSpecified, "Unhandled command '%s': this hould never happen", name.c_str());
@@ -755,6 +766,58 @@ void AllClustersAppCommandHandler::OnOvenOperationalStateChange(std::string devi
         ChipLogDetail(NotSpecified, "Invalid operation : %s", operation.c_str());
         return;
     }
+}
+
+void AllClustersAppCommandHandler::OnEnergyCalendarHandler(Json::Value param)
+{
+    EnergyCalendar::CalendarProviderInstance * provider = EnergyCalendar::GetProvider();
+    if (provider == nullptr)
+    {
+        ChipLogError(NotSpecified, "AllClusters App: Has not Calendar provider");
+        return;
+    }
+
+    if (param.isMember("Configure"))
+    {
+        Json::Value config = param.get("Configure", Json::Value());
+        if (config.isString())
+        {
+            Json::CharReaderBuilder builder;
+            Json::Value value;
+            std::ifstream ifs;
+
+            ifs.open(config.asCString());
+            if (!ifs.good())
+            {
+                ChipLogError(NotSpecified,
+                     "AllClusters App: Error open file %s", config.asCString());
+            }
+
+            Json::String errs;
+            if (!parseFromStream(builder, ifs, &value, &errs)) {
+                ChipLogError(NotSpecified,
+                     "AllClusters App: Error parsing JSON file %s with error %s:", config.asCString(), errs.c_str());
+            }
+
+            if (value.empty() || !value.isObject())
+            {
+                ChipLogError(NotSpecified, "AllClusters App: Invalid JSON file %s", config.asCString());
+                return;
+            }
+
+            provider->LoadJson(value);
+        }
+    }
+    else
+    {
+        provider->LoadJson(param);
+    }
+}
+
+void AllClustersAppCommandHandler::OnMeterIdentificationHandler(Json::Value param)
+{
+    MeterIdentification::MeterIdentificationDelegate * delegate = MeterIdentification::GetDelegate();
+    delegate->LoadJson(param);
 }
 
 void AllClustersAppCommandHandler::OnAirQualityChange(uint32_t aNewValue)
