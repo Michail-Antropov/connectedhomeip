@@ -24679,7 +24679,6 @@ public:
 using DecodableType = Type;
 
 } // namespace TransitionStruct
-namespace DateStruct = Clusters::detail::Structs::DateStruct;
 namespace DayStruct {
 enum class Fields : uint8_t
 {
@@ -24692,7 +24691,7 @@ enum class Fields : uint8_t
 struct Type
 {
 public:
-    Optional<Structs::DateStruct::Type> date;
+    Optional<uint32_t> date;
     Optional<chip::BitMask<TransitionDayOfWeekBitmap>> daysOfWeek;
     DataModel::List<const Structs::TransitionStruct::Type> transitions;
     Optional<uint32_t> calendarID;
@@ -24705,7 +24704,7 @@ public:
 struct DecodableType
 {
 public:
-    Optional<Structs::DateStruct::DecodableType> date;
+    Optional<uint32_t> date;
     Optional<chip::BitMask<TransitionDayOfWeekBitmap>> daysOfWeek;
     DataModel::DecodableList<Structs::TransitionStruct::DecodableType> transitions;
     Optional<uint32_t> calendarID;
