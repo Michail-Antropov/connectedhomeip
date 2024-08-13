@@ -4865,6 +4865,7 @@ NSString * MTRAttributeNameForID(MTRClusterIDType clusterID, MTRAttributeIDType 
             result = [NSString stringWithFormat:@"<Unknown attributeID %d>", attributeID];
             break;
         }
+        break;
 
     case MTRClusterIDTypeEnergyPreferenceID:
 
@@ -10544,6 +10545,16 @@ NSString * MTREventNameForID(MTRClusterIDType clusterID, MTREventIDType eventID)
         case MTREventIDTypeClusterEnergyEVSEEventRFIDID:
             result = @"RFID";
             break;
+
+        default:
+            result = [NSString stringWithFormat:@"<Unknown eventID %d>", eventID];
+            break;
+        }
+        break;
+
+    case MTRClusterIDTypeEnergyCalendarID:
+
+        switch (eventID) {
 
         default:
             result = [NSString stringWithFormat:@"<Unknown eventID %d>", eventID];
