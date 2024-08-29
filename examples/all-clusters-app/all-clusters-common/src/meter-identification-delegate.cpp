@@ -159,20 +159,23 @@ CHIP_ERROR MeterIdentificationDelegate::LoadJson(Json::Value & root)
 
 CHIP_ERROR MeterIdentificationDelegate::SetMeterType(DataModel::Nullable<MeterTypeEnum> newValue)
 {
-    // DataModel::Nullable<MeterTypeEnum> oldValue = mMeterType;
+    DataModel::Nullable<MeterTypeEnum> oldValue = mMeterType;
 
     mMeterType = newValue;
-    // if (oldValue != newValue)
-    //{
+    if (oldValue != newValue)
+    {
          MatterReportingAttributeChangeCallback(mEndpointId, MeterIdentification::Id, MeterType::Id);
-    // }
+    }
 
     return CHIP_NO_ERROR;
 }
 
 CHIP_ERROR MeterIdentificationDelegate::SetUtilityName(DataModel::Nullable<CharSpan> newValue)
 {
-    // CharSpan oldValue = mUtilityName;
+    if (NullableCharSpanCompare(mUtilityName, newValue))
+    {
+        return CHIP_NO_ERROR;
+    }
 
     if (!mUtilityName.IsNull())
     {
@@ -189,17 +192,17 @@ CHIP_ERROR MeterIdentificationDelegate::SetUtilityName(DataModel::Nullable<CharS
         mUtilityName = MakeNullable(CharSpan::fromCharString(str));
     }
 
-    // if (!oldValue.data_equal(newValue))
-    //{
-         MatterReportingAttributeChangeCallback(mEndpointId, MeterIdentification::Id, UtilityName::Id);
-    // }
+    MatterReportingAttributeChangeCallback(mEndpointId, MeterIdentification::Id, UtilityName::Id);
 
     return CHIP_NO_ERROR;
 }
 
 CHIP_ERROR MeterIdentificationDelegate::SetPointOfDelivery(DataModel::Nullable<CharSpan> newValue)
 {
-    // CharSpan oldValue = mPointOfDelivery;
+    if (NullableCharSpanCompare(mPointOfDelivery, newValue))
+    {
+        return CHIP_NO_ERROR;
+    }
 
     if (!mPointOfDelivery.IsNull())
     {
@@ -216,38 +219,51 @@ CHIP_ERROR MeterIdentificationDelegate::SetPointOfDelivery(DataModel::Nullable<C
         mPointOfDelivery = MakeNullable(CharSpan::fromCharString(str));
     }
 
-    // if (!oldValue.data_equal(newValue))
-    //{
-         MatterReportingAttributeChangeCallback(mEndpointId, MeterIdentification::Id, PointOfDelivery::Id);
-    // }
+    MatterReportingAttributeChangeCallback(mEndpointId, MeterIdentification::Id, PointOfDelivery::Id);
 
     return CHIP_NO_ERROR;
 }
 
 CHIP_ERROR MeterIdentificationDelegate::SetPowerThreshold(DataModel::Nullable<int64_t> newValue)
 {
-    // DataModel::Nullable<uint64_t> oldValue = mPowerThreshold;
+    DataModel::Nullable<int64_t> oldValue = mPowerThreshold;
 
     mPowerThreshold = newValue;
-    // if (oldValue != newValue)
-    //{
-         MatterReportingAttributeChangeCallback(mEndpointId, MeterIdentification::Id, PowerThreshold::Id);
-    // }
+    if (oldValue != newValue)
+    {
+        MatterReportingAttributeChangeCallback(mEndpointId, MeterIdentification::Id, PowerThreshold::Id);
+    }
 
     return CHIP_NO_ERROR;
 }
 
 CHIP_ERROR MeterIdentificationDelegate::SetPowerThresholdSource(DataModel::Nullable<PowerThresholdSourceEnum> newValue)
 {
-    // DataModel::Nullable<PowerThresholdSourceEnum> oldValue = mPowerThresholdSource;
+    DataModel::Nullable<PowerThresholdSourceEnum> oldValue = mPowerThresholdSource;
 
     mPowerThresholdSource = newValue;
-    // if (oldValue != newValue)
-    //{
+    if (oldValue != newValue)
+    {
          MatterReportingAttributeChangeCallback(mEndpointId, MeterIdentification::Id, PowerThresholdSource::Id);
-    // }
+    }
 
     return CHIP_NO_ERROR;
+}
+
+bool MeterIdentificationDelegate::NullableCharSpanCompare(DataModel::Nullable<CharSpan> a,
+                                                          DataModel::Nullable<CharSpan> b)
+{
+    if (a.IsNull() && b.IsNull())
+    {
+        return true;
+    }
+
+    if (!a.IsNull() && !b.IsNull())
+    {
+        return a.Value().data_equal(b.Value());
+    }
+
+    return false;
 }
 
 static std::unique_ptr<MeterIdentificationDelegate> gMIDelegate;

@@ -52,6 +52,9 @@ public:
     CHIP_ERROR SetPowerThresholdSource(DataModel::Nullable<PowerThresholdSourceEnum>);
 
 private:
+
+    static bool NullableCharSpanCompare(DataModel::Nullable<CharSpan> a, DataModel::Nullable<CharSpan> b);
+
     // Attribute storage
     DataModel::Nullable<MeterTypeEnum> mMeterType;
     DataModel::Nullable<CharSpan> mUtilityName;
